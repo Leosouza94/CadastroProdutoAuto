@@ -11,17 +11,18 @@ driver = webdriver.Chrome()
 driver.get("https://dlp.hashtagtreinamentos.com/python/intensivao/login")
 
 # PASSO 2 - Fazer login
-time.sleep(5)  # Aguarda o carregamento da página por 5 seg
+time.sleep(2)  # Aguarda o carregamento da página por 5 seg
 driver.find_element(By.ID,"email").send_keys("leosouza94@hotmail.com") #Procura pela ID email e insere um email
 driver.find_element(By.ID,"password").send_keys("minha senha") #Procura pela id password e insere uma senha
 driver.find_element(By.ID,"pgtpy-botao").click() #Procura pela id pgtpy-botao e clica
-time.sleep(5)
+
 
 # PASSO 3 - Importar tabela (base de dados)
 tabela = pandas.read_csv('produtos.csv') #importa a tabela onde os produtos estão listados
 
 # PASSO 4 - Cadastrar produtos
 for linha in tabela.index: #para cada linha, dentro das linhas da tabela:
+##for linha in range(5):
     #ele procura cada elemento da página por ID(são campos de digitação) e insere nestes campos as informações da tabela
     #uso tabela.loc[linha,coluna], passadas para string, para escrever nos campos
     driver.find_element(By.ID,"codigo").send_keys(str(tabela.loc[linha, 'codigo']))
@@ -40,6 +41,9 @@ for linha in tabela.index: #para cada linha, dentro das linhas da tabela:
         
     #Procura pelo ID pgtpy-botao, que é o botão de enviar, e dá um click
     driver.find_element(By.ID,"pgtpy-botao").click()
+
+
+#time.sleep(25)
 
 # Fechar o navegador ao final (opcional)
 ##driver.quit()
